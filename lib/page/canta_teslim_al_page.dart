@@ -22,7 +22,7 @@ class CantaTeslimAlPage extends StatelessWidget {
       appBar: AppBar(
         leading: const Icon(Icons.arrow_back),
         title: Text(
-          container.read(languageProvider).isEnglish ? "Pick up the bag" : "Nehmen Sie die Tasche.",
+          container.read(languageProvider).isEnglish ? "Pick up the bag" : "Nehmen Sie die Tasc",
           style: GoogleFonts.openSans(color: Colors.blue, fontSize: 20),
         ),
       ),
@@ -41,6 +41,11 @@ class CantaTeslimAlPage extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: Image.asset("assets/images/box.png")),
                 const Gap(20),
+                Text(
+                  container.read(languageProvider).isEnglish?
+                  "Type the bag number or scan the qr code with the camera.":"Taschenummer Manuel oder scan den Taschen barcode",
+                  style: GoogleFonts.openSans(color: Colors.blue),
+                ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   height: 60,
@@ -148,9 +153,8 @@ class CantaTeslimAlPage extends StatelessWidget {
                         width: double.infinity,
                         height: 50,
                         child: Center(
-                          child: Text(
-                              container.read(languageProvider).isEnglish ? "Pick up the bag" : "Nehmen Sie die Tasche.",
-                              style: GoogleFonts.openSans(color: Colors.white, fontWeight: FontWeight.w500)),
+                          child:
+                              Text("OK", style: GoogleFonts.openSans(color: Colors.white, fontWeight: FontWeight.w500)),
                         ),
                       )),
                 ),

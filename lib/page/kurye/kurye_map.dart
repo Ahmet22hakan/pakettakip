@@ -36,7 +36,7 @@ class _CantaTeslimEtPageState extends State<KuryeMap> {
       appBar: AppBar(
         title: Text(
           container.read(languageProvider).isEnglish?
-          "Please select the Location":"Bitte wählen Sie Ihren Standort.",
+          "Please select the Location":"Bitte wählen Sie den Zustellung Standort",
           style: GoogleFonts.openSans(color: Colors.blue, fontSize: 18),
         ),
       ),

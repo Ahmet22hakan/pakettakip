@@ -19,8 +19,7 @@ class QrIslemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(Icons.arrow_back),
+      appBar: AppBar(      
         title: Text(
           container.read(languageProvider).isEnglish ? "Bag transactions." : "Taschenoperationen.",
           style: GoogleFonts.openSans(color: Colors.blue, fontSize: 20),

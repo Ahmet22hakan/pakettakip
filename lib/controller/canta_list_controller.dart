@@ -1,4 +1,5 @@
 import 'package:PrimeTasche/controller/base_controller.dart';
+import 'package:PrimeTasche/controller/language_controller.dart';
 import 'package:PrimeTasche/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -60,12 +61,20 @@ class BagListController extends BaseController {
 
   void depoyaAl() {
     if (cantalarListe[selectedBagQr] == null) {
-      showSimpleNotification(const Text("Çanta bulunamadı."), background: Colors.blue);
+      showSimpleNotification(
+          Text(container.read(languageProvider).isEnglish
+              ? "This QR code does not match any bag."
+              : "Dieser QR-Code passt zu keiner Tasche."),
+          background: Colors.blue);
       return;
     }
     if (cantalarListe[selectedBagQr]["inAdress"] == false) {
       if (cantalarListe[selectedBagQr]["inCourier"] == false) {
-        showSimpleNotification(const Text("Çanta zaten depoda"), background: Colors.blue);
+        showSimpleNotification(
+            Text(container.read(languageProvider).isEnglish
+                ? "This bag is already in the warehouse."
+                : "Die Tasche ist bereits im Lager."),
+            background: Colors.blue);
         return;
       }
       try {
@@ -82,13 +91,21 @@ class BagListController extends BaseController {
         selectIndex(-1);
         state = DataState.loading;
         singleShot();
-        showSimpleNotification(const Text("Çanta Başarıyla depoya alındı"), background: Colors.blue);
+        showSimpleNotification(
+            Text(container.read(languageProvider).isEnglish
+                ? "The bag was successfully delivered to the warehouse."
+                : "Die Tasche wurde erfolgreich an das Lager geliefert."),
+            background: Colors.blue);
         selectedBagQr = "";
       } on FirebaseException catch (e) {
         showSimpleNotification(Text(e.message ?? "Bilinmeyen Hata"), background: Colors.blue);
       }
     } else {
-      showSimpleNotification(const Text("Adresteki çantayı depoya alamazsınız"), background: Colors.blue);
+      showSimpleNotification(
+          Text(container.read(languageProvider).isEnglish
+              ? "You cannot return a delivered bag to the warehouse."
+              : "Sie können eine gelieferte Tasche nicht an das Lager zurückschicken."),
+          background: Colors.blue);
     }
   }
 
@@ -106,12 +123,20 @@ class BagListController extends BaseController {
         });
         state = DataState.loading;
         singleShot();
-        showSimpleNotification(const Text("Çanta Başarıyla kuryeye zimmetlendi."), background: Colors.blue);
+        showSimpleNotification(
+            Text(container.read(languageProvider).isEnglish
+                ? "The bag was successfully transferred to the courier."
+                : "Die Tasche wurde erfolgreich an den Fahrer übergeben."),
+            background: Colors.blue);
       } on FirebaseException catch (e) {
         showSimpleNotification(Text(e.message ?? "Bilinmeyen Hata"), background: Colors.blue);
       }
     } else {
-      showSimpleNotification(const Text("Adresteki çantayı kuryeye zimmetleyemezsiniz."), background: Colors.blue);
+      showSimpleNotification(
+          Text(container.read(languageProvider).isEnglish
+              ? "You can't transfer the bag from the address to the courier."
+              : "Sie können die Tasche nicht von der Adresse an den Fahrer weitergeben."),
+          background: Colors.blue);
     }
   }
 

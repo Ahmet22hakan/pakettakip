@@ -24,7 +24,7 @@ class CantaTeslimEtPage extends StatelessWidget {
       appBar: AppBar(
         leading: const Icon(Icons.arrow_back),
         title: Text(
-          container.read(languageProvider).isEnglish ? "Delvier the bag" : "Übergeben Sie die Tasche.",
+          container.read(languageProvider).isEnglish ? "Deliver the bag" : "Tasche zustellen",
           style: GoogleFonts.openSans(color: Colors.blue, fontSize: 20),
         ),
       ),
@@ -82,7 +82,7 @@ class CantaTeslimEtPage extends StatelessWidget {
               child: TextField(
                 controller: context.read(inputProvider).paketNo,
                 decoration: InputDecoration(
-                    hintText: container.read(languageProvider).isEnglish ? "Package number" : "Paketnummer",
+                    hintText: container.read(languageProvider).isEnglish ? "Package number" : "Stopnummer",
                     hintStyle: GoogleFonts.openSans(),
                     prefixIcon: const Icon(
                       Icons.numbers,
@@ -180,8 +180,8 @@ class CantaTeslimEtPage extends StatelessWidget {
                         if (tempSayi < 10) {
                           showSimpleNotification(
                               Text(container.read(languageProvider).isEnglish
-                                  ? "Your Bag Quantity is decreasing."
-                                  : "Dir gehen die Taschen aus.(${tempSayi - 1})"),
+                                  ? "${tempSayi - 1} bags left."
+                                  : "Verbleibende Tasche ${tempSayi - 1}"),
                               background: Colors.red,
                               duration: const Duration(seconds: 8));
                         }
@@ -204,9 +204,7 @@ class CantaTeslimEtPage extends StatelessWidget {
                     width: double.infinity,
                     height: 50,
                     child: Center(
-                      child: Text(
-                          container.read(languageProvider).isEnglish ? "Delvier the bag" : "Übergeben Sie die Tasche.",
-                          style: GoogleFonts.openSans(color: Colors.white, fontWeight: FontWeight.w500)),
+                      child: Text("OK", style: GoogleFonts.openSans(color: Colors.white, fontWeight: FontWeight.w500)),
                     ),
                   )),
             ),
@@ -238,12 +236,15 @@ class CantaTeslimEtPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          "Şifreyi not edip müşterinin posta kutusuna atın.",
+                          context.read(languageProvider).isEnglish
+                              ? "Write down the password and put it in the customer's mailbox."
+                              : "Passwort notieren und in den Briefkasten schmeißen",
                           style: GoogleFonts.openSans(
                             color: Colors.red,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
+                        
                           textAlign: TextAlign.center,
                         ),
                       ),

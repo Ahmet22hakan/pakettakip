@@ -20,8 +20,7 @@ class LanguageController extends BaseController {
           onTap: () {
             context.read(languageProvider).german();
             container.read(languageProvider).storage.write("lang", false);
-            showSimpleNotification(const Text("Bitte starten Sie die App neu, damit Ihre Spracheinstellungen wirksam werden"),
-                background: Colors.blue);
+           
           },
           child: Container(
             padding: const EdgeInsets.all(8),
@@ -39,8 +38,7 @@ class LanguageController extends BaseController {
           onTap: () {
             context.read(languageProvider).english();
             container.read(languageProvider).storage.write("lang", true);
-            showSimpleNotification(const Text("Please restart the app for your language settings to take effect"),
-                background: Colors.blue);
+           
           },
           child: Container(
             padding: const EdgeInsets.all(8),

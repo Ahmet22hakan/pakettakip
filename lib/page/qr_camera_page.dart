@@ -1,3 +1,4 @@
+import 'package:PrimeTasche/controller/language_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:PrimeTasche/controller/input_controller.dart';
@@ -16,7 +17,9 @@ class QrCameraPage extends StatelessWidget {
         title: Row(
           children: [
             Text(
-              "QR",
+              container.read(languageProvider).isEnglish?
+              "Scan a QR code":
+              "Taschen Barcode scanner",
               style: GoogleFonts.openSans(
                 fontSize: 20,
                 color: Colors.blue,

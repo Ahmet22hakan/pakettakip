@@ -30,224 +30,230 @@ class _KuryeHomePageState extends State<KuryeHomePage> {
   @override
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            container.read(languageProvider).languageWidget,
-            Text(
-              auth.currentUser?.displayName ?? "",
-              style: GoogleFonts.openSans(
-                fontSize: 20,
-                color: Colors.blue,
-              ),
-            ),
-            IconButton(
-                onPressed: () {
-                  auth.signOut();
-                },
-                icon: const Icon(
-                  Icons.logout,
-                  color: Colors.blue,
-                )),
-          ],
-        ),
-      ),
-      body: Container(
-        color: Colors.grey.shade100,
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return Consumer(builder: (context, ref, widger) {
+      ref.watch(languageProvider.select((value) => value.isEnglish));
+      return Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                margin: const EdgeInsets.all(16),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero, side: BorderSide(color: Colors.transparent))),
-                    onPressed: () {
-                      context.read(routeProvider).push("/kuryemap");
-                      context.read(mapProvider).getNearMarkers();
-                    },
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: Center(
-                        child: Text(
-                          container.read(languageProvider).isEnglish ? "Deliver the bag" : "Die Tasche zu übergeben.",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    )),
+              container.read(languageProvider).languageWidget,
+              Text(
+                auth.currentUser?.displayName ?? "",
+                style: GoogleFonts.openSans(
+                  fontSize: 20,
+                  color: Colors.blue,
+                ),
               ),
-              Container(
-                margin: const EdgeInsets.all(16),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero, side: BorderSide(color: Colors.transparent))),
-                    onPressed: () {
-                      context.read(inputProvider).qr.clear();
-                      context.read(routeProvider).push("/cantateslimal");
-                      context.read(routeProvider).push("/qrcamera");
-                      context.read(mapProvider).konumuGetir();
-                    },
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: Center(
-                        child: Text(
-                          container.read(languageProvider).isEnglish ? "pick up the bag." : "Heben Sie die Tasche auf.",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    )),
-              ),
-              Container(
-                margin: const EdgeInsets.all(16),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero, side: BorderSide(color: Colors.transparent))),
-                    onPressed: () {
-                      context.read(routeProvider).push("/mappage");
-                    },
-                    child: const SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: Center(
-                        child: Text(
-                          "Map",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    )),
-              ),
-              Container(
-                margin: const EdgeInsets.all(16),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero, side: BorderSide(color: Colors.transparent))),
-                    onPressed: () {
-                      context.read(infoProvider).getInfo().then(
-                        (value) {
-                          showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                    backgroundColor: Colors.white,
-                                    surfaceTintColor: Colors.white,
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Container(
-                                            width: MediaQuery.of(context).size.width / 3,
-                                            margin: const EdgeInsets.symmetric(horizontal: 16),
-                                            child: Image.asset("assets/images/box.png")),
-                                        const Gap(8),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              container.read(languageProvider).isEnglish
-                                                  ? "Courier:${context.read(infoProvider).kuryede}"
-                                                  : "Fahrer:${context.read(infoProvider).kuryede}",
-                                              style: GoogleFonts.openSans(color: Colors.blue, fontSize: 18),
-                                            ),
-                                            const Gap(4),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              container.read(languageProvider).isEnglish
-                                                  ? "at the Adress:${context.read(infoProvider).adreste}"
-                                                  : "unter der Adresse:${context.read(infoProvider).adreste}",
-                                              style: GoogleFonts.openSans(color: Colors.blue, fontSize: 18),
-                                            ),
-                                            const Gap(4),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              container.read(languageProvider).isEnglish
-                                                  ? "Total:${context.read(infoProvider).adreste + context.read(infoProvider).kuryede}"
-                                                  : "Total:${context.read(infoProvider).adreste + context.read(infoProvider).kuryede}",
-                                              style: GoogleFonts.openSans(color: Colors.blue, fontSize: 18),
-                                            ),
-                                            const Gap(4),
-                                          ],
-                                        ),
-                                        const Gap(8),
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                                          onPressed: () {
-                                            context.pop();
-                                          },
-                                          child: Text(
-                                            "OK",
-                                            style: GoogleFonts.openSans(color: Colors.white, fontSize: 18),
-                                          ),
-                                        )
-                                      ],
-                                    ));
-                              });
-                        },
-                      );
-                    },
-                    child: const SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: Center(
-                        child: Text(
-                          "Info",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    )),
-              ),
-              const Gap(16),
-              Consumer(
-                builder: (context, ref, child) {
-                  var connected = ref.watch(connectionProvider.select((value) => value.connected));
-                  if (connected) {
-                    return Container();
-                  }
-                  return Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Gap(16),
-                      Icon(
-                        Icons.info_outline,
-                        color: Colors.red,
-                      ),
-                      Gap(8),
-                      Expanded(
-                        child: Text(
-                          container.read(languageProvider).isEnglish
-                              ? "Please do not close the app, it will synchronize the data when it connects to the servers. "
-                              : "Bitte schließen Sie die Anwendung nicht, ihre Daten werden synchronisiert, wenn sie sich mit den Servern verbindet.",
-                        ),
-                      )
-                    ],
-                  );
-                },
-              )
+              IconButton(
+                  onPressed: () {
+                    auth.signOut();
+                  },
+                  icon: const Icon(
+                    Icons.logout,
+                    color: Colors.blue,
+                  )),
             ],
           ),
         ),
-      ),
-    );
+        body: Container(
+          color: Colors.grey.shade100,
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero, side: BorderSide(color: Colors.transparent))),
+                      onPressed: () {
+                        context.read(routeProvider).push("/kuryemap");
+                        context.read(mapProvider).getNearMarkers();
+                      },
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: Center(
+                          child: Text(
+                            container.read(languageProvider).isEnglish ? "Deliver the bag" : "Tasche zustellen",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      )),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero, side: BorderSide(color: Colors.transparent))),
+                      onPressed: () {
+                        context.read(inputProvider).qr.clear();
+                        context.read(routeProvider).push("/cantateslimal");
+                        context.read(routeProvider).push("/qrcamera");
+                        context.read(mapProvider).konumuGetir();
+                      },
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: Center(
+                          child: Text(
+                            container.read(languageProvider).isEnglish
+                                ? "Pick up the bag."
+                                : "Tache Abholung",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      )),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero, side: BorderSide(color: Colors.transparent))),
+                      onPressed: () {
+                        context.read(routeProvider).push("/mappage");
+                      },
+                      child:  SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: Center(
+                          child: Text(
+                            container.read(languageProvider).isEnglish?
+                            "Map":"Landkarte",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      )),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero, side: BorderSide(color: Colors.transparent))),
+                      onPressed: () {
+                        context.read(infoProvider).getInfo().then(
+                          (value) {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      surfaceTintColor: Colors.white,
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                              width: MediaQuery.of(context).size.width / 3,
+                                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                                              child: Image.asset("assets/images/box.png")),
+                                          const Gap(8),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                container.read(languageProvider).isEnglish
+                                                    ? "Not delivered:${context.read(infoProvider).kuryede}"
+                                                    : "Nicht zugestellt:${context.read(infoProvider).kuryede}",
+                                                style: GoogleFonts.openSans(color: Colors.blue, fontSize: 18),
+                                              ),
+                                              const Gap(4),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                container.read(languageProvider).isEnglish
+                                                    ? "Delivered:${context.read(infoProvider).adreste}"
+                                                    : "Zugestellt:${context.read(infoProvider).adreste}",
+                                                style: GoogleFonts.openSans(color: Colors.blue, fontSize: 18),
+                                              ),
+                                              const Gap(4),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                container.read(languageProvider).isEnglish
+                                                    ? "Total:${context.read(infoProvider).adreste + context.read(infoProvider).kuryede}"
+                                                    : "Total:${context.read(infoProvider).adreste + context.read(infoProvider).kuryede}",
+                                                style: GoogleFonts.openSans(color: Colors.blue, fontSize: 18),
+                                              ),
+                                              const Gap(4),
+                                            ],
+                                          ),
+                                          const Gap(8),
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                                            onPressed: () {
+                                              context.pop();
+                                            },
+                                            child: Text(
+                                              "OK",
+                                              style: GoogleFonts.openSans(color: Colors.white, fontSize: 18),
+                                            ),
+                                          )
+                                        ],
+                                      ));
+                                });
+                          },
+                        );
+                      },
+                      child: const SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: Center(
+                          child: Text(
+                            "Info",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      )),
+                ),
+                const Gap(16),
+                Consumer(
+                  builder: (context, ref, child) {
+                    var connected = ref.watch(connectionProvider.select((value) => value.connected));
+                    if (connected) {
+                      return Container();
+                    }
+                    return Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Gap(16),
+                        Icon(
+                          Icons.info_outline,
+                          color: Colors.red,
+                        ),
+                        Gap(8),
+                        Expanded(
+                          child: Text(
+                            container.read(languageProvider).isEnglish
+                                ? "Please do not close the app, it will synchronize the data when it connects to the servers. "
+                                : "Bitte schließen Sie die Anwendung nicht, ihre Daten werden synchronisiert, wenn sie sich mit den Servern verbindet.",
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+    });
   }
 }
