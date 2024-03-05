@@ -128,7 +128,7 @@ class QrIslemPage extends StatelessWidget {
                           child: Text(
                               container.read(languageProvider).isEnglish
                                   ? "Give it to the courier."
-                                  : "Geben Sie es dem Kurier.",
+                                  : "Geben Sie es dem Fahrer.",
                               style: GoogleFonts.openSans(color: Colors.white, fontWeight: FontWeight.w500)),
                         ),
                       )),

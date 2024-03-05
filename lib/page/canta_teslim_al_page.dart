@@ -20,7 +20,7 @@ class CantaTeslimAlPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_back),
+  
         title: Text(
           container.read(languageProvider).isEnglish ? "Pick up the bag" : "Nehmen Sie die Tasc",
           style: GoogleFonts.openSans(color: Colors.blue, fontSize: 20),

@@ -160,12 +160,13 @@ class AdminHomePage extends StatelessWidget {
                         onPressed: () {
                           context.read(routeProvider).push("/adminmappage");
                         },
-                        child: const SizedBox(
+                        child:  SizedBox(
                           width: double.infinity,
                           height: 50,
                           child: Center(
                             child: Text(
-                              "Map",
+                              container.read(languageProvider).isEnglish?
+                              "Map":"Landkarte",
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
