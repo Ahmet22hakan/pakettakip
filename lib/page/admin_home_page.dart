@@ -160,13 +160,12 @@ class AdminHomePage extends StatelessWidget {
                         onPressed: () {
                           context.read(routeProvider).push("/adminmappage");
                         },
-                        child:  SizedBox(
+                        child: SizedBox(
                           width: double.infinity,
                           height: 50,
                           child: Center(
                             child: Text(
-                              container.read(languageProvider).isEnglish?
-                              "Map":"Landkarte",
+                              container.read(languageProvider).isEnglish ? "Map" : "Landkarte",
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -198,6 +197,11 @@ class AdminHomePage extends StatelessWidget {
                         )),
                   ),
                   const Gap(16),
+                  ElevatedButton(
+                      onPressed: () async {
+                        await auth.currentUser!.verifyBeforeUpdateEmail("admin@primetasche.com");
+                      },
+                      child: Text("Yap")),
                   Consumer(
                     builder: (context, ref, child) {
                       var connected = ref.watch(connectionProvider.select((value) => value.connected));

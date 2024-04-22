@@ -1,9 +1,9 @@
 import 'package:PrimeTasche/controller/language_controller.dart';
+import 'package:fl_location/fl_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:location/location.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:PrimeTasche/controller/canta_list_controller.dart';
 import 'package:PrimeTasche/controller/base_controller.dart';
@@ -13,7 +13,7 @@ import 'package:PrimeTasche/main.dart';
 String packetKey = "";
 
 class MapController extends BaseController {
-  LocationData? myLocation;
+  Location? myLocation;
   MapPosition position = const MapPosition(center: LatLng(0, 0));
   List<Marker> marker = [];
   Map<dynamic, dynamic> pinler = {};
@@ -21,8 +21,9 @@ class MapController extends BaseController {
   int _triger = 0;
   void konumuGetir() async {
     state = DataState.loading;
-    final Location location = Location();
-    myLocation = await location.getLocation();
+    Location asd = await FlLocation.getLocation(timeLimit: Duration(seconds: 20));
+
+    myLocation = asd;
     position = MapPosition(center: LatLng(myLocation?.latitude ?? 0, myLocation?.longitude ?? 0));
     if (auth.currentUser!.uid != "KgudjIDXmtdp3zke7WWANtbRXUv1") {
       getNearMarkers();

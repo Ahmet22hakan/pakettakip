@@ -77,7 +77,7 @@ class _BagListPageState extends State<BagListPage> {
                         Icons.warehouse_outlined,
                         color: Colors.white,
                       ),
-                      label: container.read(languageProvider).isEnglish ? "put it in Warehouse" : "einlagern.")
+                      label: container.read(languageProvider).isEnglish ? "Put it in Warehouse" : "einlagern.")
                 ],
                 child: Icon(
                   Icons.menu,

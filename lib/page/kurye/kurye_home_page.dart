@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:location/location.dart';
 import 'package:PrimeTasche/controller/canta_list_controller.dart';
 import 'package:PrimeTasche/controller/base_controller.dart';
 import 'package:PrimeTasche/controller/connection_controller.dart';
